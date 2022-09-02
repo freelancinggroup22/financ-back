@@ -1,9 +1,10 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 
 import { AppFirestore, AuthFirebase } from '@/infra/database/firebase/connection';
 
 import { AccountRepository } from '../models/account-repository';
+import { AuthenticateRequestType, AuthenticateResponseType } from '../types/authenticate-type';
 import { RegisterRequestType, RegisterResponseType } from '../types/register-type';
 
 export class FirebaseAccountRepository implements AccountRepository {
@@ -21,6 +22,26 @@ export class FirebaseAccountRepository implements AccountRepository {
     });
 
     return { uid, photoURL, displayName: name, accessToken: refreshToken };
+  }
+
+  async authenticate({
+    email,
+    password,
+  }: AuthenticateRequestType): Promise<AuthenticateResponseType> {
+    const { user } = await signInWithEmailAndPassword(this.auth, email, password);
+    const { uid, refreshToken } = user;
+
+    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+
+    const data = {} as AuthenticateResponseType;
+
+    querySnapshot.forEach((doc) => {
+      if (doc.data().uid === uid) {
+        Object.assign(data, { ...doc.data(), accessToken: refreshToken });
+      }
+    });
+
+    return data;
   }
 
   async existsEmail(email: string): Promise<boolean> {

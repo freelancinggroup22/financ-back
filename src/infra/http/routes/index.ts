@@ -4,4 +4,4 @@ import { accountRouter } from './account.routes';
 
 export const router = Router();
 
-router.use('/register', accountRouter);
+router.use('/', accountRouter);
