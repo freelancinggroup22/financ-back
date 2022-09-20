@@ -5,25 +5,25 @@ import { AccountRepository } from '@/infra/repositories/models/account-repositor
 
 import { ExistingEmailError } from './errors/existing-email';
 
-export type RegisterAccountRequest = {
+export type RegisterAccountInput = {
   name: string;
   email: string;
   password: string;
 };
 
-export type RegisterAccountResponse = {
+export type RegisterAccountOutput = {
   uid: string;
   photoURL: Maybe<string>;
   displayName: Maybe<string>;
   accessToken: string;
 };
 
-export type Response = Either<AccountErrors | ExistingEmailError, Partial<RegisterAccountResponse>>;
+export type Output = Either<AccountErrors | ExistingEmailError, Partial<RegisterAccountOutput>>;
 
 export class RegisterAccount {
   constructor(private readonly repository: AccountRepository) {}
 
-  async execute({ name, email, password }: RegisterAccountRequest): Promise<Response> {
+  async execute({ name, email, password }: RegisterAccountInput): Promise<Output> {
     const accountOrError = await Account.create({ name, email, password });
 
     if (accountOrError.isLeft()) return left(accountOrError.value);
@@ -34,7 +34,7 @@ export class RegisterAccount {
 
     if (emailAlreadyExists) return left(new ExistingEmailError(email));
 
-    const registerOrError = await this.repository.register(account as RegisterAccountRequest);
+    const registerOrError = await this.repository.register(account as RegisterAccountInput);
 
     return right(registerOrError);
   }
