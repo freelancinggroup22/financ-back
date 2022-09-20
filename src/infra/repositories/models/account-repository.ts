@@ -5,4 +5,5 @@ export interface AccountRepository {
   register(data: RegisterRequestType): Promise<RegisterResponseType>;
   authenticate(data: AuthenticateRequestType): Promise<AuthenticateResponseType>;
   existsEmail(email: string): Promise<boolean>;
+  existsAccount(id: string): Promise<boolean>;
 }

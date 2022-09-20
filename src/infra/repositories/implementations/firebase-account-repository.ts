@@ -56,4 +56,17 @@ export class FirebaseAccountRepository implements AccountRepository {
 
     return emailAlreadyExists;
   }
+
+  async existsAccount(id: string): Promise<boolean> {
+    const querySnapshot = await getDocs(collection(this.firestore, 'users'));
+    let accountAlreadyExists = false;
+
+    querySnapshot.forEach((doc) => {
+      if (doc.data().uid === id) {
+        accountAlreadyExists = true;
+      }
+    });
+
+    return accountAlreadyExists;
+  }
 }
