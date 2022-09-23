@@ -1,6 +1,7 @@
 import Joi from 'joi';
 
-import { Maybe } from '../../../core/logic/maybe';
+import { Maybe } from '@/core/logic/maybe';
+
 import { ValidatorProvider } from '../models/validator-provider';
 
 export class JoiValidatorProvider implements ValidatorProvider {

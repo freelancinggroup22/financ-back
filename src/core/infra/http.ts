@@ -19,7 +19,7 @@ export const noContent = (): HttpResponse => ({
   body: null,
 });
 
-export const badRequest = (error: any): HttpResponse => ({
+export const badRequest = (error: Error): HttpResponse => ({
   statusCode: 400,
   body: error,
 });

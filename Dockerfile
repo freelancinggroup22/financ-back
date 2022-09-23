@@ -1,6 +1,5 @@
 # Base image: node:lts-alpine
 FROM node:lts-alpine@sha256:425c81a04546a543da824e67c91d4a603af16fbc3d875ee2f276acf8ec2b1577 AS base
-LABEL maintainer="William de Souza Freire"
 RUN mkdir -p /home/node/app
 RUN chown -R node:node /home/node && chmod -R 770 /home/node
 WORKDIR /home/node/app

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { Controller } from '../../core/infra/controller';
+import { Controller } from '@/core/infra/controller';
 
 export const routerAdapter = (controller: Controller) => {
   return async (request: Request, response: Response) => {

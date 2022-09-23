@@ -1,3 +1,3 @@
 #!/bin/sh
 
-(cd /home/node/app && yarn develop)
+(cd /home/node/app && yarn start:dev)

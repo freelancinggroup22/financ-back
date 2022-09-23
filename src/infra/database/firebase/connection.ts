@@ -1,9 +1,24 @@
-import { initializeApp } from 'firebase/app';
+import * as firebaseAdmin from 'firebase-admin';
+import * as firebaseApp from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
 
-import { firebaseConfig } from '@/infra/config/firebase';
+import { firebaseConfig } from '@/infra/config/firebase-config';
 
-export const AppFirebase = initializeApp(firebaseConfig);
-export const AuthFirebase = getAuth();
-export const AppFirestore = getFirestore(AppFirebase);
+export const FirebaseConnection = () => {
+  const connectionAdmin = !firebaseAdmin.apps.length
+    ? firebaseAdmin.initializeApp({
+        credential: firebaseAdmin.credential.cert(firebaseConfig.admin),
+      })
+    : firebaseAdmin.app();
+
+  const getApp = () => firebaseApp.initializeApp(firebaseConfig.app);
+  const getRepo = () => connectionAdmin.auth();
+  const getFirestore = () => connectionAdmin.firestore();
+
+  return {
+    getApp: getApp(),
+    getAuth: getAuth(getApp()),
+    getRepo: getRepo(),
+    getFirestore: getFirestore(),
+  };
+};
