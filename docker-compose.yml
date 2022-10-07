@@ -9,8 +9,18 @@ services:
       target: develop
       dockerfile: Dockerfile
     environment:
-      - PORT=3333
       - NODE_ENV=development
+      - PORT=3333
+      - FIREBASE_CLIENT_EMAIL=
+      - FIREBASE_PRIVATE_KEY=
+      - FIREBASE_PROJECT_ID=
+      - FIREBASE_CLIENT=
+      - FIREBASE_API_KEY=
+      - FIREBASE_AUTH_DOMAIN=
+      - FIREBASE_STORAGE=
+      - FIREBASE_MESSAGING_SENDER_ID=
+      - FIREBASE_ID=
+      - FIREBASE_MEASUREMENT_ID=
     volumes:
       - .:/home/node/app
     ports:
@@ -18,6 +28,16 @@ services:
       - '9229:9229'
     networks:
       - app-net
+
+  redis:
+    container_name: financ-redis
+    image: 'bitnami/redis:latest@sha256:958245289f4e0aa5f7d44a96b54aaf27a891afe35e53ffa0a48d120b07680787'
+    ports:
+      - '6379:6379'
+    networks:
+      - 'app-net'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=true
 
 networks:
   app-net:
