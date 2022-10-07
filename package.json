@@ -23,7 +23,8 @@
     "clean-architecture"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig-build.json --skipLibCheck",
+    "build": "rimraf dist/ && tsc -p tsconfig-build.json --skipLibCheck",
+    "start": "node dist/infra/http/server.js",
     "start:dev": "tsnd --respawn --transpile-only --inspect=0.0.0.0:9229 --ignore-watch node_modules --watch --clear --exit-child --rs -r tsconfig-paths/register src/infra/http/server.ts",
     "lint": "eslint --ext ts --fix src/**/*.ts",
     "test": "jest --no-cache --silent --runInBand --detectOpenHandles --forceExit",
@@ -40,6 +41,7 @@
     "firebase-admin": "^11.0.1",
     "helmet": "^6.0.0",
     "joi": "^17.6.0",
+    "rate-limiter-flexible": "^2.3.11",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -67,6 +69,7 @@
     "husky": "^8.0.1",
     "jest": "^27.5.1",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "standard-version": "^9.5.0",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.9.1",
