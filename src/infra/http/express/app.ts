@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 
-import { router } from '../routes';
+import { router } from './routes';
 
 export class App {
   private readonly _app: express.Application;
