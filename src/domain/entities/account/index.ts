@@ -1,13 +1,12 @@
 import { Entity } from '@/core/domain/entity';
 import { Either, left, right } from '@/core/logic/either';
 import { Maybe } from '@/core/logic/maybe';
-
-import { Email } from './values-objects/email';
-import { InvalidEmailError } from './values-objects/errors/invalid-email-error';
-import { InvalidNameError } from './values-objects/errors/invalid-name-error';
-import { InvalidPasswordError } from './values-objects/errors/invalid-password-error';
-import { Name } from './values-objects/name';
-import { Password } from './values-objects/password';
+import { Email } from '@/domain/values-objects/email';
+import { InvalidEmailError } from '@/domain/values-objects/errors/invalid-email-error';
+import { InvalidNameError } from '@/domain/values-objects/errors/invalid-name-error';
+import { InvalidPasswordError } from '@/domain/values-objects/errors/invalid-password-error';
+import { Name } from '@/domain/values-objects/name';
+import { Password } from '@/domain/values-objects/password';
 
 type AccountProps = {
   name?: Maybe<string>;

@@ -4,13 +4,13 @@ import { Controller } from '@/core/infra/controller';
 
 export const routerAdapter = (controller: Controller) => {
   return async (request: Request, response: Response) => {
-    const requestData = {
+    const httpRequest = {
       ...request.body,
       ...request.params,
       ...request.query,
     };
 
-    const httpResponse = await controller.handle(requestData);
+    const httpResponse = await controller.handle(httpRequest);
 
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
       return response.status(httpResponse.statusCode).json(httpResponse.body);

@@ -1,5 +1,6 @@
-import { Account } from './account';
-import { InvalidEmailError } from './values-objects/errors/invalid-email-error';
+import { InvalidEmailError } from '@/domain/values-objects/errors/invalid-email-error';
+
+import { Account } from './';
 
 describe('Account Entity', () => {
   it('Should create an account on success if receive all values valid', () => {
