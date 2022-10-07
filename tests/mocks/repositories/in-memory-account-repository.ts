@@ -1,7 +1,7 @@
 import { AccountRepository } from '@/application/repositories/account-repository';
 import { AuthenticateOutput } from '@/application/usecases/account/authenticate-account';
 import { AsyncMaybe } from '@/core/logic/maybe';
-import { Account } from '@/domain/entities/account/account';
+import { Account } from '@/domain/entities/account';
 
 export class InMemoryAccountRepository implements AccountRepository {
   constructor(private rows: Account[] = []) {}

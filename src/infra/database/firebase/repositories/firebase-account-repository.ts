@@ -2,7 +2,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 import { AccountRepository } from '@/application/repositories/account-repository';
 import { AuthenticateOutput } from '@/application/usecases/account/authenticate-account';
-import { Account } from '@/domain/entities/account/account';
+import { Account } from '@/domain/entities/account';
 
 import { FirebaseConnection } from '../connection';
 
