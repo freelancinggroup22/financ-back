@@ -1,4 +1,4 @@
-import { Account } from '@/domain/entities/account/account';
+import { Account } from '@/domain/entities/account';
 
 import { AuthenticateOutput } from '../usecases/account/authenticate-account';
 

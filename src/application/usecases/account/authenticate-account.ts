@@ -1,7 +1,7 @@
 import { AccountRepository } from '@/application/repositories/account-repository';
 import { Either, left, right } from '@/core/logic/either';
 import { Maybe } from '@/core/logic/maybe';
-import { Account, AccountErrors } from '@/domain/entities/account/account';
+import { Account, AccountErrors } from '@/domain/entities/account';
 
 import { NotExistingEmailError } from './errors/not-existing-email';
 

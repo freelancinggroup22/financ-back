@@ -1,5 +1,5 @@
 import { AccountRepository } from '@/application/repositories/account-repository';
-import { Account } from '@/domain/entities/account/account';
+import { Account } from '@/domain/entities/account';
 import { InMemoryAccountRepository } from '@tests/mocks/repositories/in-memory-account-repository';
 
 import {
