@@ -12,7 +12,7 @@ export class InMemoryWalletRepository implements WalletRepository {
     return this.rows.some((row) => row.user === user && row.title === title);
   }
 
-  async getAllWalletsFromUser(user: string): Promise<Wallet[]> {
+  async getAllWalletsFromUser(user: string, limit?: number): Promise<Wallet[]> {
     return this.rows.filter((row) => row.user === user);
   }
 

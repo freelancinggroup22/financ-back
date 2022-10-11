@@ -20,12 +20,13 @@ export class FirebaseWalletRepository implements WalletRepository {
     return result;
   }
 
-  async getAllWalletsFromUser(user: string): Promise<Wallet[]> {
+  async getAllWalletsFromUser(user: string, limit = 10): Promise<Wallet[]> {
     const wallets: Wallet[] = [];
 
     await this.repo
       .collection(this.collection)
       .where('user', '==', user)
+      .limit(limit)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
