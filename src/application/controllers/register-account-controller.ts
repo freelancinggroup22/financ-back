@@ -3,8 +3,8 @@ import {
   badRequest,
   fail,
   HttpResponse,
-  noContent,
   notFound,
+  created,
 } from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
@@ -33,7 +33,7 @@ export class RegisterAccountController implements Controller {
 
       if (result.isLeft()) return notFound(result.value);
 
-      return noContent();
+      return created();
     } catch (error) {
       return fail(error as Error);
     }
