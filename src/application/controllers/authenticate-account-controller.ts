@@ -1,5 +1,11 @@
 import { Controller } from '@/core/infra/controller';
-import { badRequest, HttpResponse, notFound, ok } from '@/core/infra/http';
+import {
+  badRequest,
+  fail,
+  HttpResponse,
+  notFound,
+  ok,
+} from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
 import { AuthenticateAccount } from '../usecases/account/authenticate-account';

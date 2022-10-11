@@ -1,9 +1,10 @@
 import { Controller } from '@/core/infra/controller';
 import {
   badRequest,
+  fail,
   HttpResponse,
-  notFound,
   noContent,
+  notFound,
 } from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
