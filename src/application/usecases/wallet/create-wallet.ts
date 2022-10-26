@@ -24,7 +24,10 @@ export class CreateWallet {
     const walletOrError = Wallet.create({ title, user });
     if (walletOrError.isLeft()) return left(walletOrError.value);
 
-    const walletAlreadyExists = await this.repository.existsWallet(title, user);
+    const walletAlreadyExists = await this.repository.existsTitleWallet(
+      title,
+      user,
+    );
     if (walletAlreadyExists) return left(new ExistingWalletError(title));
 
     const wallet = walletOrError.value;

@@ -12,15 +12,40 @@ export class FirebaseWalletRepository implements WalletRepository {
     await this.repo.collection(this.collection).add({ title, user });
   }
 
-  async existsWallet(title: string, user: string): Promise<boolean> {
-    const wallets = await this.getAllWalletsFromUser(user);
+  async existsTitleWallet(title: string, user: string): Promise<boolean> {
+    let wallet: Wallet | undefined;
 
-    const result = wallets.some((wallet) => wallet.title === title);
+    await this.repo
+      .collection(this.collection)
+      .where('user', '==', user)
+      .where('title', '==', title)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const walletOrError = Wallet.create({
+            title: doc.data().title || 'Name not found',
+            balance: doc.data().balance || 0,
+            incomes: doc.data().income || 0,
+            outcomes: doc.data().outcome || 0,
+            user: doc.data().user || '',
+          });
 
-    return result;
+          if (walletOrError.isRight()) {
+            wallet = walletOrError.value;
+          }
+        });
+      });
+
+    return !!wallet;
   }
 
-  async getAllWalletsFromUser(user: string, limit = 10): Promise<Wallet[]> {
+  async existsWallet(user: string, walletId: string): Promise<boolean> {
+    const wallet = await this.getOneWalletFromUser(user, walletId);
+
+    return !!wallet;
+  }
+
+  async getAllWalletsFromUser(user: string, limit: number): Promise<Wallet[]> {
     const wallets: Wallet[] = [];
 
     await this.repo
@@ -47,15 +72,19 @@ export class FirebaseWalletRepository implements WalletRepository {
     return wallets;
   }
 
-  async getOneWalletFromUser(id: string): Promise<Wallet | undefined> {
+  async getOneWalletFromUser(
+    user: string,
+    walletId: string,
+  ): Promise<Wallet | undefined> {
     const wallet = await this.repo
       .collection(this.collection)
-      .doc(id)
+      .doc(walletId)
       .get()
       .then((querySnapshot) => {
         const doc = querySnapshot.data();
 
-        if (doc) {
+        console.log(doc);
+        if (doc && doc.user === user) {
           const walletOrError = Wallet.create({
             title: doc.title || 'Name not found',
             balance: doc.balance || 0,
@@ -73,17 +102,17 @@ export class FirebaseWalletRepository implements WalletRepository {
     return wallet;
   }
 
-  async updateOneWalletFromUser(
+  async updateWallet(
     { balance, incomes, outcomes, title }: Wallet,
-    id: string,
+    user: string,
   ): Promise<void> {
     await this.repo
       .collection(this.collection)
-      .doc(id)
+      .doc(user)
       .update({ balance, incomes, outcomes, title });
   }
 
-  async deleteOneWalletFromUser(walletId: string): Promise<void> {
+  async removeWallet(walletId: string): Promise<void> {
     await this.repo.collection(this.collection).doc(walletId).delete();
   }
 }
