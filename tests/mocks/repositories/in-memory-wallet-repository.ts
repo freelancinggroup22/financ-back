@@ -8,8 +8,12 @@ export class InMemoryWalletRepository implements WalletRepository {
     this.rows.push(data);
   }
 
-  async existsWallet(title: string, user: string): Promise<boolean> {
+  async existsTitleWallet(title: string, user: string): Promise<boolean> {
     return this.rows.some((row) => row.user === user && row.title === title);
+  }
+
+  async existsWallet(user: string, walletId: string): Promise<boolean> {
+    return this.rows.some((row) => row.user === user && row.id === walletId);
   }
 
   async getAllWalletsFromUser(user: string, limit?: number): Promise<Wallet[]> {
@@ -20,13 +24,13 @@ export class InMemoryWalletRepository implements WalletRepository {
     return this.rows.find((row) => row.id === id);
   }
 
-  async updateOneWalletFromUser(data: Wallet, id: string): Promise<void> {
+  async updateWallet(data: Wallet, id: string): Promise<void> {
     const wallet = this.rows.findIndex((row) => row.id === id);
 
     this.rows[wallet] = data;
   }
 
-  async deleteOneWalletFromUser(id: string): Promise<void> {
+  async removeWallet(id: string): Promise<void> {
     const wallet = this.rows.find((row) => row.id === id);
 
     this.rows.splice(this.rows.indexOf(wallet as Wallet), 1);
