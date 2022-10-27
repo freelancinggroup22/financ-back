@@ -38,7 +38,7 @@ describe('Get One Wallet', () => {
 
     jest
       .spyOn(repository, 'getOneWalletFromUser')
-      .mockReturnValue(Promise.resolve(walletOrUndefined));
+      .mockReturnValueOnce(Promise.resolve(walletOrUndefined));
 
     const response = await sut.execute(params);
 
@@ -50,7 +50,7 @@ describe('Get One Wallet', () => {
 
     jest
       .spyOn(repository, 'getOneWalletFromUser')
-      .mockReturnValue(Promise.resolve(walletOrUndefined));
+      .mockReturnValueOnce(Promise.resolve(walletOrUndefined));
 
     const response = await sut.execute(params);
 

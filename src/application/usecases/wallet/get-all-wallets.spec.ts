@@ -31,7 +31,7 @@ describe('Get All Wallets', () => {
     await repository.createWallet(wallet);
     jest
       .spyOn(repository, 'getAllWalletsFromUser')
-      .mockReturnValue(Promise.resolve([{ title: '' }] as Wallet[]));
+      .mockReturnValueOnce(Promise.resolve([{ title: '' }] as Wallet[]));
 
     const response = await sut.execute(params);
 
