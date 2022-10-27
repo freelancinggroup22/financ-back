@@ -1,35 +1,34 @@
 import { Controller } from '@/core/infra/controller';
 import {
   badRequest,
-  ok,
-  fail,
   HttpResponse,
+  noContent,
   notFound,
 } from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
-import { GetAllWallets } from '../usecases/wallet/get-all-wallets';
+import { DeleteWallet } from '../usecases/wallet/delete-wallet';
 
-export type GetAllWalletsControllerRequest = {
+export type DeleteWalletControllerRequest = {
   userId: string;
-  limit?: number;
+  walletId: string;
 };
 
-export class GetAllWalletsController implements Controller {
+export class DeleteWalletController implements Controller {
   constructor(
-    private readonly getOneWallets: GetAllWallets,
+    private readonly deleteWallet: DeleteWallet,
     private readonly validator: ValidatorProvider,
   ) {}
 
-  async handle(request: GetAllWalletsControllerRequest): Promise<HttpResponse> {
+  async handle(request: DeleteWalletControllerRequest): Promise<HttpResponse> {
     try {
       const error = this.validator.validate(request);
       if (error) return badRequest(error);
 
-      const result = await this.getOneWallets.execute(request);
+      const result = await this.deleteWallet.execute(request);
       if (result.isLeft()) return notFound(result.value);
 
-      return ok(result);
+      return noContent();
     } catch (error) {
       return fail(error as Error);
     }
