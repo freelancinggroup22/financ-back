@@ -4,6 +4,6 @@ import { GetAllWalletsControllerRequest } from '../controllers/get-all-wallet-co
 
 export const GetAllWalletsValidator =
   Joi.object<GetAllWalletsControllerRequest>({
-    user: Joi.string().required(),
+    userId: Joi.string().required(),
     limit: Joi.number().optional(),
   });

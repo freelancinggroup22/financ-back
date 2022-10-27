@@ -16,9 +16,9 @@ describe('Create Wallet', () => {
     sut = new CreateWallet(repository);
     params = {
       title: 'johndoe',
-      user: 'ayJTyuIciOiJIUzI1NiJ9.eyJSb2xlIjoLiyRtaW4iLJJnk',
+      userId: 'ayJTyuIciOiJIUzI1NiJ9.eyJSb2xlIjoLiyRtaW4iLJJnk',
     };
-    wallet = Wallet.create(params).value as Wallet;
+    wallet = Wallet.create({ ...params, user: params.userId }).value as Wallet;
   });
 
   it('Should be able to create an wallet', async () => {

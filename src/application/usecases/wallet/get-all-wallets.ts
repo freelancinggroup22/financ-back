@@ -5,7 +5,7 @@ import { Wallet, WalletErrors } from '@/domain/entities/wallet';
 import { NotExistingWalletError } from './errors/not-existing-wallet';
 
 export type GetAllWalletInput = {
-  user: string;
+  userId: string;
   limit?: number;
 };
 
@@ -18,11 +18,11 @@ export class GetAllWallets {
   constructor(private readonly repository: WalletRepository) {}
 
   async execute({
-    user,
+    userId,
     limit = 10,
   }: GetAllWalletInput): Promise<GetAllWalletOutput> {
     const walletsFromUser = await this.repository.getAllWalletsFromUser(
-      user,
+      userId,
       Number(limit),
     );
 

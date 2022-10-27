@@ -5,7 +5,7 @@ import { Wallet, WalletErrors } from '@/domain/entities/wallet';
 import { NotExistingWalletError } from './errors/not-existing-wallet';
 
 export type GetOneWalletInput = {
-  user: string;
+  userId: string;
   walletId: string;
 };
 
@@ -18,15 +18,15 @@ export class GetOneWallet {
   constructor(private readonly repository: WalletRepository) {}
 
   async execute({
-    user,
+    userId,
     walletId,
   }: GetOneWalletInput): Promise<GetOneWalletOutput> {
     const walletAlreadyExists = await this.repository.getOneWalletFromUser(
-      user,
+      userId,
       walletId,
     );
 
-    if (!walletAlreadyExists) return left(new NotExistingWalletError(user));
+    if (!walletAlreadyExists) return left(new NotExistingWalletError(userId));
 
     const walletOrError = Wallet.create(walletAlreadyExists);
     if (walletOrError.isLeft()) return left(walletOrError.value);

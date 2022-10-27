@@ -12,12 +12,12 @@ export class FirebaseWalletRepository implements WalletRepository {
     await this.repo.collection(this.collection).add({ title, user });
   }
 
-  async existsTitleWallet(title: string, user: string): Promise<boolean> {
+  async existsTitleWallet(title: string, userId: string): Promise<boolean> {
     let wallet: Wallet | undefined;
 
     await this.repo
       .collection(this.collection)
-      .where('user', '==', user)
+      .where('user', '==', userId)
       .where('title', '==', title)
       .get()
       .then((querySnapshot) => {
@@ -39,18 +39,21 @@ export class FirebaseWalletRepository implements WalletRepository {
     return !!wallet;
   }
 
-  async existsWallet(user: string, walletId: string): Promise<boolean> {
-    const wallet = await this.getOneWalletFromUser(user, walletId);
+  async existsWallet(userId: string, walletId: string): Promise<boolean> {
+    const wallet = await this.getOneWalletFromUser(userId, walletId);
 
     return !!wallet;
   }
 
-  async getAllWalletsFromUser(user: string, limit: number): Promise<Wallet[]> {
+  async getAllWalletsFromUser(
+    userId: string,
+    limit: number,
+  ): Promise<Wallet[]> {
     const wallets: Wallet[] = [];
 
     await this.repo
       .collection(this.collection)
-      .where('user', '==', user)
+      .where('user', '==', userId)
       .limit(limit)
       .get()
       .then((querySnapshot) => {
@@ -73,7 +76,7 @@ export class FirebaseWalletRepository implements WalletRepository {
   }
 
   async getOneWalletFromUser(
-    user: string,
+    userId: string,
     walletId: string,
   ): Promise<Wallet | undefined> {
     const wallet = await this.repo
@@ -83,8 +86,7 @@ export class FirebaseWalletRepository implements WalletRepository {
       .then((querySnapshot) => {
         const doc = querySnapshot.data();
 
-        console.log(doc);
-        if (doc && doc.user === user) {
+        if (doc && doc.user === userId) {
           const walletOrError = Wallet.create({
             title: doc.title || 'Name not found',
             balance: doc.balance || 0,
@@ -104,11 +106,11 @@ export class FirebaseWalletRepository implements WalletRepository {
 
   async updateWallet(
     { balance, incomes, outcomes, title }: Wallet,
-    user: string,
+    userId: string,
   ): Promise<void> {
     await this.repo
       .collection(this.collection)
-      .doc(user)
+      .doc(userId)
       .update({ balance, incomes, outcomes, title });
   }
 

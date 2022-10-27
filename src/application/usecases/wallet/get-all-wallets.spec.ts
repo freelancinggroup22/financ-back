@@ -14,7 +14,7 @@ describe('Get All Wallets', () => {
     repository = new InMemoryWalletRepository();
     sut = new GetAllWallets(repository);
     params = {
-      user: 'ayJTyuIciOiJIUzI1NiJ9.eyJSb2xlIjoLiyRtaW4iLJJnk',
+      userId: 'ayJTyuIciOiJIUzI1NiJ9.eyJSb2xlIjoLiyRtaW4iLJJnk',
       limit: 10,
     };
     wallet = Wallet.create({

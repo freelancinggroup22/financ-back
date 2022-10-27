@@ -11,7 +11,7 @@ import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 import { GetOneWallet } from '../usecases/wallet/get-one-wallet';
 
 export type GetOneWalletControllerRequest = {
-  user: string;
+  userId: string;
   walletId: string;
 };
 

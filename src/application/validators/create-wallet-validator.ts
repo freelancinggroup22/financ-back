@@ -4,5 +4,5 @@ import { CreateWalletControllerRequest } from '../controllers/create-wallet-cont
 
 export const CreateWalletValidator = Joi.object<CreateWalletControllerRequest>({
   title: Joi.string().min(5).max(20).required().trim(),
-  user: Joi.string().required(),
+  userId: Joi.string().required(),
 });

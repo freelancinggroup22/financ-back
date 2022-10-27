@@ -12,7 +12,7 @@ import { CreateWallet } from '../usecases/wallet/create-wallet';
 
 export type CreateWalletControllerRequest = {
   title: string;
-  user: string;
+  userId: string;
 };
 
 export class CreateWalletController implements Controller {

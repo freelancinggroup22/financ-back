@@ -6,7 +6,7 @@ import { ExistingWalletError } from './errors/existing-wallet';
 
 export type CreateWalletInput = {
   title: string;
-  user: string;
+  userId: string;
 };
 
 export type CreateWalletOutput = Either<
@@ -19,14 +19,14 @@ export class CreateWallet {
 
   async execute({
     title,
-    user,
+    userId,
   }: CreateWalletInput): Promise<CreateWalletOutput> {
-    const walletOrError = Wallet.create({ title, user });
+    const walletOrError = Wallet.create({ title, user: userId });
     if (walletOrError.isLeft()) return left(walletOrError.value);
 
     const walletAlreadyExists = await this.repository.existsTitleWallet(
       title,
-      user,
+      userId,
     );
     if (walletAlreadyExists) return left(new ExistingWalletError(title));
 

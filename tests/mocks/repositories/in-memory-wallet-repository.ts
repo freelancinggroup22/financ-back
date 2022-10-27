@@ -8,16 +8,19 @@ export class InMemoryWalletRepository implements WalletRepository {
     this.rows.push(data);
   }
 
-  async existsTitleWallet(title: string, user: string): Promise<boolean> {
-    return this.rows.some((row) => row.user === user && row.title === title);
+  async existsTitleWallet(title: string, userId: string): Promise<boolean> {
+    return this.rows.some((row) => row.user === userId && row.title === title);
   }
 
-  async existsWallet(user: string, walletId: string): Promise<boolean> {
-    return this.rows.some((row) => row.user === user && row.id === walletId);
+  async existsWallet(userId: string, walletId: string): Promise<boolean> {
+    return this.rows.some((row) => row.user === userId && row.id === walletId);
   }
 
-  async getAllWalletsFromUser(user: string, limit?: number): Promise<Wallet[]> {
-    return this.rows.filter((row) => row.user === user);
+  async getAllWalletsFromUser(
+    userId: string,
+    limit?: number,
+  ): Promise<Wallet[]> {
+    return this.rows.filter((row) => row.user === userId);
   }
 
   async getOneWalletFromUser(id: string): Promise<Wallet | undefined> {

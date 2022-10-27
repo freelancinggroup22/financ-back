@@ -11,7 +11,7 @@ import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 import { GetAllWallets } from '../usecases/wallet/get-all-wallets';
 
 export type GetAllWalletsControllerRequest = {
-  user: string;
+  userId: string;
   limit?: number;
 };
 
