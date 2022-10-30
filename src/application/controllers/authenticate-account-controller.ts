@@ -1,10 +1,10 @@
 import { Controller } from '@/core/infra/controller';
 import {
   badRequest,
-  fail,
   HttpResponse,
   notFound,
   ok,
+  ServerError,
 } from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
@@ -34,7 +34,7 @@ export class AuthenticateAccountController implements Controller {
 
       return ok(result);
     } catch (error) {
-      return fail(error as Error);
+      return ServerError(error as Error);
     }
   }
 }

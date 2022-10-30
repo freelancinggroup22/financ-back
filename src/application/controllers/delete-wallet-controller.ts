@@ -4,6 +4,7 @@ import {
   HttpResponse,
   noContent,
   notFound,
+  ServerError,
 } from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
@@ -30,7 +31,7 @@ export class DeleteWalletController implements Controller {
 
       return noContent();
     } catch (error) {
-      return fail(error as Error);
+      return ServerError(error as Error);
     }
   }
 }

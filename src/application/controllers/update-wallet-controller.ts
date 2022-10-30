@@ -1,5 +1,11 @@
 import { Controller } from '@/core/infra/controller';
-import { badRequest, HttpResponse, notFound, ok } from '@/core/infra/http';
+import {
+  badRequest,
+  HttpResponse,
+  notFound,
+  ok,
+  ServerError,
+} from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
 import { UpdateWallet } from '../usecases/wallet/update-wallet';
@@ -26,7 +32,7 @@ export class UpdateWalletController implements Controller {
 
       return ok(result);
     } catch (error) {
-      return fail(error as Error);
+      return ServerError(error as Error);
     }
   }
 }

@@ -49,7 +49,7 @@ export const tooMany = (error: Error): HttpResponse => ({
   body: error,
 });
 
-export const fail = (error: Error): HttpResponse => ({
+export const ServerError = (error: Error): HttpResponse => ({
   statusCode: 500,
   body: error,
   error,

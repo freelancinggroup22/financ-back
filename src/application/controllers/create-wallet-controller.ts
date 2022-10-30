@@ -1,10 +1,10 @@
 import { Controller } from '@/core/infra/controller';
 import {
   badRequest,
-  fail,
+  created,
   HttpResponse,
   notFound,
-  created,
+  ServerError,
 } from '@/core/infra/http';
 import { ValidatorProvider } from '@/infra/providers/models/validator-provider';
 
@@ -31,7 +31,7 @@ export class CreateWalletController implements Controller {
 
       return created();
     } catch (error) {
-      return fail(error as Error);
+      return ServerError(error as Error);
     }
   }
 }
