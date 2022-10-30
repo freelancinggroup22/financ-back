@@ -8,6 +8,7 @@ export const routerAdapter = (controller: Controller) => {
       ...request.body,
       ...request.params,
       ...request.query,
+      userId: request.userId,
     };
 
     const httpResponse = await controller.handle(httpRequest);

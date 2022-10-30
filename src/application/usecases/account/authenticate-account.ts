@@ -13,6 +13,7 @@ export type AuthenticateAccountInput = {
 export type AuthenticateOutput = {
   uid: string;
   displayName: Maybe<string>;
+  accessToken: string;
   refreshToken: string;
 };
 

@@ -18,6 +18,7 @@ export class InMemoryAccountRepository implements AccountRepository {
     return {
       uid: result.id,
       displayName: result.name,
+      accessToken: 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc',
       refreshToken: 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc',
     };
   }
@@ -36,5 +37,10 @@ export class InMemoryAccountRepository implements AccountRepository {
 
   async findById(id: string): AsyncMaybe<Account> {
     return this.rows.find((row) => row.id === id);
+  }
+
+  async verifyToken(token: string): Promise<string> {
+    const uid = '1234565789';
+    return uid;
   }
 }

@@ -7,4 +7,5 @@ export interface AccountRepository {
   authenticate(data: Account): Promise<AuthenticateOutput>;
   existsEmail(email: string): Promise<boolean>;
   existsId(userId: string): Promise<boolean>;
+  verifyToken(token: string): Promise<string>;
 }

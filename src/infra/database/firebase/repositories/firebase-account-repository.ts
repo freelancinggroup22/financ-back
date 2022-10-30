@@ -25,10 +25,15 @@ export class FirebaseAccountRepository implements AccountRepository {
     password,
   }: Account): Promise<AuthenticateOutput> {
     const {
-      user: { uid, displayName, refreshToken },
+      user: { uid, displayName, refreshToken, getIdToken },
     } = await signInWithEmailAndPassword(this.auth, email, password);
 
-    return { uid, displayName, refreshToken };
+    return {
+      uid,
+      displayName,
+      accessToken: await getIdToken(),
+      refreshToken,
+    };
   }
 
   async existsEmail(email: string): Promise<boolean> {
@@ -47,5 +52,11 @@ export class FirebaseAccountRepository implements AccountRepository {
       .catch((error) => Boolean(!error));
 
     return result;
+  }
+
+  async verifyToken(token: string): Promise<string> {
+    const result = await this.repo.verifyIdToken(token, true);
+
+    return result.uid;
   }
 }
