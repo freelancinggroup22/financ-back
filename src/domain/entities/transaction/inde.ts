@@ -2,6 +2,7 @@ import { Entity } from '@/core/domain/entity';
 import { Either, left, right } from '@/core/logic/either';
 import { Amount } from '@/domain/values-objects/amount';
 import { Category } from '@/domain/values-objects/category';
+import { Description } from '@/domain/values-objects/description';
 import { InvalidAmountError } from '@/domain/values-objects/errors/invalid-amount-error';
 import { InvalidCategoryError } from '@/domain/values-objects/errors/invalid-category-error';
 import { InvalidDescriptionError } from '@/domain/values-objects/errors/invalid-description-error';
@@ -9,6 +10,7 @@ import { InvalidFlowError } from '@/domain/values-objects/errors/invalid-flow-er
 import { InvalidStatusError } from '@/domain/values-objects/errors/invalid-status-error';
 import { InvalidTitleError } from '@/domain/values-objects/errors/invalid-title-error';
 import { Flow } from '@/domain/values-objects/flow';
+import { Status } from '@/domain/values-objects/status';
 import { Title } from '@/domain/values-objects/title';
 
 type TransactionProps = {
@@ -42,7 +44,7 @@ export class Transaction extends Entity<TransactionProps> {
     const titleOrError = Title.create(props.title);
     if (titleOrError.isLeft()) return left(titleOrError.value);
 
-    const descriptionOrError = Title.create(props.description);
+    const descriptionOrError = Description.create(props.description);
     if (descriptionOrError.isLeft()) return left(descriptionOrError.value);
 
     const amountOrError = Amount.create(props.amount);
@@ -54,7 +56,7 @@ export class Transaction extends Entity<TransactionProps> {
     const categoryOrError = Category.create(props.category);
     if (categoryOrError.isLeft()) return left(categoryOrError.value);
 
-    const statusOrError = Category.create(props.status);
+    const statusOrError = Status.create(props.status);
     if (statusOrError.isLeft()) return left(statusOrError.value);
 
     const wallet = new Transaction(props, id);
