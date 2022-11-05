@@ -58,13 +58,16 @@ export class FirebaseWalletRepository implements WalletRepository {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          const walletOrError = Wallet.create({
-            title: doc.data().title || 'Name not found',
-            balance: doc.data().balance || 0,
-            incomes: doc.data().income || 0,
-            outcomes: doc.data().outcome || 0,
-            user: doc.data().user || '',
-          });
+          const walletOrError = Wallet.create(
+            {
+              title: doc.data().title || 'Name not found',
+              balance: doc.data().balance || 0,
+              incomes: doc.data().income || 0,
+              outcomes: doc.data().outcome || 0,
+              user: doc.data().user || '',
+            },
+            doc.id,
+          );
 
           if (walletOrError.isRight()) {
             wallets.push(walletOrError.value);
@@ -78,7 +81,7 @@ export class FirebaseWalletRepository implements WalletRepository {
   async getOneWalletFromUser(
     userId: string,
     walletId: string,
-  ): Promise<Wallet | undefined> {
+  ): Promise<any | undefined> {
     const wallet = await this.repo
       .collection(this.collection)
       .doc(walletId)
@@ -87,13 +90,16 @@ export class FirebaseWalletRepository implements WalletRepository {
         const doc = querySnapshot.data();
 
         if (doc && doc.user === userId) {
-          const walletOrError = Wallet.create({
-            title: doc.title || 'Name not found',
-            balance: doc.balance || 0,
-            incomes: doc.income || 0,
-            outcomes: doc.outcome || 0,
-            user: doc.user || '',
-          });
+          const walletOrError = Wallet.create(
+            {
+              title: doc.title || 'Name not found',
+              balance: doc.balance || 0,
+              incomes: doc.income || 0,
+              outcomes: doc.outcome || 0,
+              user: doc.user || '',
+            },
+            walletId,
+          );
 
           if (walletOrError.isRight()) {
             return walletOrError.value;
@@ -101,7 +107,14 @@ export class FirebaseWalletRepository implements WalletRepository {
         }
       });
 
-    return wallet;
+    return {
+      id: walletId,
+      title: wallet?.title,
+      balance: wallet?.balance,
+      incomes: wallet?.incomes,
+      outcomes: wallet?.outcomes,
+      user: wallet?.user,
+    };
   }
 
   async updateWallet(

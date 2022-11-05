@@ -25,13 +25,14 @@ export class FirebaseAccountRepository implements AccountRepository {
     password,
   }: Account): Promise<AuthenticateOutput> {
     const {
-      user: { uid, displayName, refreshToken, getIdToken },
+      // @ts-ignore
+      user: { uid, displayName, refreshToken, accessToken },
     } = await signInWithEmailAndPassword(this.auth, email, password);
 
     return {
       uid,
       displayName,
-      accessToken: await getIdToken(),
+      accessToken,
       refreshToken,
     };
   }
