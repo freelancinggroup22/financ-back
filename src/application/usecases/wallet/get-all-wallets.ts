@@ -1,18 +1,13 @@
 import { WalletRepository } from '@/application/repositories/wallet-repository';
-import { Either, left, right } from '@/core/logic/either';
+import { Either, right } from '@/core/logic/either';
 import { Wallet, WalletErrors } from '@/domain/entities/wallet';
-
-import { NotExistingWalletError } from './errors/not-existing-wallet';
 
 export type GetAllWalletInput = {
   userId: string;
   limit?: number;
 };
 
-export type GetAllWalletOutput = Either<
-  WalletErrors | NotExistingWalletError,
-  Wallet[]
->;
+export type GetAllWalletOutput = Either<WalletErrors, Wallet[]>;
 
 export class GetAllWallets {
   constructor(private readonly repository: WalletRepository) {}

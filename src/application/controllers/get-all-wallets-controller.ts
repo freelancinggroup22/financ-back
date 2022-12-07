@@ -17,7 +17,7 @@ export type GetAllWalletsControllerRequest = {
 
 export class GetAllWalletsController implements Controller {
   constructor(
-    private readonly getOneWallets: GetAllWallets,
+    private readonly getAllWallets: GetAllWallets,
     private readonly validator: ValidatorProvider,
   ) {}
 
@@ -26,7 +26,7 @@ export class GetAllWalletsController implements Controller {
       const error = this.validator.validate(request);
       if (error) return badRequest(error);
 
-      const result = await this.getOneWallets.execute(request);
+      const result = await this.getAllWallets.execute(request);
       if (result.isLeft()) return notFound(result.value);
 
       return ok(result);

@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { GetAllWalletsControllerRequest } from '../controllers/get-all-wallet-controller';
+import { GetAllWalletsControllerRequest } from '../controllers/get-all-wallets-controller';
 
 export const GetAllWalletsValidator =
   Joi.object<GetAllWalletsControllerRequest>({
