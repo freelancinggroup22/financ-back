@@ -16,12 +16,12 @@ import { Title } from '@/domain/values-objects/title';
 type TransactionProps = {
   title: string;
   description: string;
-  wallet: string;
+  wallet?: string;
   amount: number;
-  flow: 'income' | 'outcome';
-  date: string;
+  flow: string;
+  date: number;
   category: string;
-  status: 'pending' | 'planned' | 'paid';
+  status: string;
 };
 
 export type TransactionErrors =
@@ -33,6 +33,38 @@ export type TransactionErrors =
   | InvalidStatusError;
 
 export class Transaction extends Entity<TransactionProps> {
+  get title(): string {
+    return this.props.title;
+  }
+
+  get description(): string {
+    return this.props.description;
+  }
+
+  get wallet(): string | undefined {
+    return this.props.wallet;
+  }
+
+  get amount(): number {
+    return this.props.amount;
+  }
+
+  get flow(): string {
+    return this.props.flow;
+  }
+
+  get date(): number {
+    return this.props.date;
+  }
+
+  get category(): string {
+    return this.props.category;
+  }
+
+  get status(): string {
+    return this.props.status;
+  }
+
   private constructor(props: TransactionProps, id?: string) {
     super(props, id);
   }

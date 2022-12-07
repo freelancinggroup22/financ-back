@@ -5,7 +5,7 @@ import { InvalidFlowError } from '@/domain/values-objects/errors/invalid-flow-er
 import { InvalidStatusError } from '@/domain/values-objects/errors/invalid-status-error';
 import { InvalidTitleError } from '@/domain/values-objects/errors/invalid-title-error';
 
-import { Transaction } from './inde';
+import { Transaction } from '.';
 
 describe('Wallet Entity', () => {
   it('Should create an wallet on success if receive all values valid', () => {
@@ -15,7 +15,7 @@ describe('Wallet Entity', () => {
       wallet: '12345yt67u',
       amount: 1,
       flow: 'income',
-      date: new Date().toISOString() as Date | string,
+      date: new Date().valueOf() as Date | number,
       category: 'Test Like',
       status: 'pending',
     };
@@ -31,7 +31,7 @@ describe('Wallet Entity', () => {
       wallet: '12345yt67u',
       amount: 1 as string | number,
       flow: 'income',
-      date: new Date().toISOString() as Date | string,
+      date: new Date().valueOf() as Date | number,
       category: 'Test Like' as string | number,
       status: 'pending',
     };
@@ -50,7 +50,7 @@ describe('Wallet Entity', () => {
       wallet: '12345yt67u',
       amount: 1,
       flow: 'income',
-      date: new Date().toISOString() as Date | string,
+      date: new Date().valueOf() as Date | number,
       category: 'Test Like',
       status: 'pending',
     };
@@ -69,7 +69,7 @@ describe('Wallet Entity', () => {
       wallet: '12345yt67u',
       amount: 1 as string | number,
       flow: 'income',
-      date: new Date().toISOString() as Date | string,
+      date: new Date().valueOf() as Date | number,
       category: 'Test Like',
       status: 'pending',
     };
@@ -88,7 +88,7 @@ describe('Wallet Entity', () => {
       wallet: '12345yt67u',
       amount: 1,
       flow: 'income',
-      date: new Date().toISOString() as Date | string,
+      date: new Date().valueOf() as Date | number,
       category: 'Test Like',
       status: 'pending',
     };
@@ -107,7 +107,7 @@ describe('Wallet Entity', () => {
       wallet: '12345yt67u',
       amount: 1,
       flow: 'income',
-      date: new Date().toISOString() as Date | string,
+      date: new Date().valueOf() as Date | number,
       category: 'Test Like' as string | number,
       status: 'pending',
     };
@@ -126,7 +126,7 @@ describe('Wallet Entity', () => {
       wallet: '12345yt67u',
       amount: 1,
       flow: 'income',
-      date: new Date().toISOString() as Date | string,
+      date: new Date().valueOf() as Date | number,
       category: 'Test Like',
       status: 'pending',
     };
