@@ -22,7 +22,7 @@ export class Title {
   static validate(title: string): boolean {
     const pattern = /^[a-z '-]+$/i;
 
-    if (title.length > 20 || title.length < 5 || !pattern.test(title)) {
+    if (title.length > 20 || title.length < 3 || !pattern.test(title)) {
       return false;
     }
 
