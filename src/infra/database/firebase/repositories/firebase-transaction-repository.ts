@@ -92,7 +92,7 @@ export class FirebaseTransactionRepository implements TransactionRepository {
   async getOneTransactionFromUser(
     walletId: string,
     transactionId: string,
-  ): Promise<any | undefined> {
+  ): Promise<Partial<Transaction> | undefined> {
     const transactionsRef = await this.repo.collection(
       `${this.collection}/${walletId}/transactions`,
     );
@@ -137,11 +137,15 @@ export class FirebaseTransactionRepository implements TransactionRepository {
 
   async updateTransaction(
     { title, description, flow, amount, date, category, status }: Transaction,
-    userId: string,
+    transactionId: string,
+    walletId: string,
   ): Promise<void> {
-    await this.repo
-      .collection(this.collection)
-      .doc(userId)
+    const transactionsRef = await this.repo.collection(
+      `${this.collection}/${walletId}/transactions`,
+    );
+
+    await transactionsRef
+      .doc(transactionId)
       .update({ title, description, flow, amount, date, category, status });
   }
 

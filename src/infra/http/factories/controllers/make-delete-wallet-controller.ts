@@ -6,7 +6,7 @@ import { FirebaseAccountRepository } from '@/infra/database/firebase/repositorie
 import { FirebaseWalletRepository } from '@/infra/database/firebase/repositories/firebase-wallet-repository';
 import { JoiValidatorProvider } from '@/infra/providers/implementations/joi-validator-provider';
 
-export const makeDeleteAccountController = (): Controller => {
+export const makeDeleteWalletController = (): Controller => {
   const firebaseWalletRepository = new FirebaseWalletRepository();
   const firebaseAccountRepository = new FirebaseAccountRepository();
   const updateAccount = new DeleteWallet(
