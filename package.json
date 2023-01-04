@@ -30,7 +30,8 @@
     "test": "jest --no-cache --silent=false --runInBand --detectOpenHandles --forceExit",
     "test:watch": "jest -i --watchAll",
     "prepare": "husky install",
-    "tsnode": "ts-node -r tsconfig-paths/register"
+    "tsnode": "ts-node -r tsconfig-paths/register",
+    "release": "standard-version"
   },
   "dependencies": {
     "class-validator": "^0.13.2",
