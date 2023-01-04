@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import compression from 'compression';
 import cors from 'cors';
 import express from 'express';
