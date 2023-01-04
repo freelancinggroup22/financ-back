@@ -23,7 +23,7 @@
     "clean-architecture"
   ],
   "scripts": {
-    "build:prod": "rimraf dist/ && tsc -p tsconfig-build.json --skipLibCheck",
+    "build": "rimraf dist/ && tsc -p tsconfig-build.json --skipLibCheck",
     "start": "node dist/infra/http/server.js",
     "start:dev": "tsnd --respawn --transpile-only --inspect=0.0.0.0:9229 --ignore-watch node_modules --watch --clear --exit-child --rs -r tsconfig-paths/register src/infra/http/server.ts",
     "lint": "eslint --ext ts --fix src/**/*.ts",
