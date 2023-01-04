@@ -6,7 +6,7 @@ services:
     restart: always
     build:
       context: .
-      target: runtime
+      target: develop
       dockerfile: Dockerfile
     environment:
       - NODE_ENV=development
